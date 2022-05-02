@@ -32,32 +32,32 @@ static int wpimode = -1 ;
 
 int bcmToGpioCPi[64] =
 {
-	58,  57,	// 0, 1
-	167, 0,		// 2, 3
-	1, 2,		// 4  5
-	3,  4,		// 6, 7
-	5,  6,		// 8, 9
-	7,  8,		//10,11
-	15,  54,	//12,13
-	134,  135,	//14,15
+	58,  57,      // 0, 1
+	167, 0,      // 2, 3
+	1, 2,      // 4  5
+	3,  4,      // 6, 7
+	5,  6,      // 8, 9
+	7,  8,      //10,11
+	15,  54,      //12,13
+	134,  135,      //14,15
 
-	137, 136,	//16,17
-	139,  138,	//18,19
-	141,  140,	//20,21
-	128,  129,	//22,23
-	130,  131,	//24,25
-	132, 133,	//26,27
-	9,  201,	//28,29
-	196,   199,	//30,31
+	137, 136,      //16,17
+	139,  138,      //18,19
+	141,  140,      //20,21
+	128,  129,      //22,23
+	130,  131,      //24,25
+	132, 133,      //26,27
+	9,  201,    //28,29
+	196,   199,    //30,31
 
-	161,  160,	//32,33
-	227,  198,	//34,35
-	163, 166,	//36,37
-	165,  164,	//38,39
-	228,  224,	//40,41
-	225, 226,	//42,43
-	56,  55,	//44,45
-	-1, -1,		//46,47
+	161,  160,      //32,33
+	227,  198,      //34,35
+	163, 166,      //36,37
+	165,  164,      //38,39
+	228,  224,      //40,41
+	225, 226,      //42,43
+	56,  55,      //44,45
+	-1, -1,      //46,47
 
 	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,// ... 63
 };
@@ -83,34 +83,34 @@ volatile uint32_t *gpioL_base;
 
 int bcmToGpioCPi[64] =
 {
-	106,  107,	// 0, 1
-	104, 10,	// 2, 3
-	3, 9,		// 4  5
-	4,  90,		// 6, 7
-	92,  158,	// 8, 9
-	156,  105,	// 10,11
-	146,  150,	// 12,13
-	81,  80,	// 14,15
+	106,  107,      // 0, 1
+	104, 10,      // 2, 3
+	3, 9,      // 4  5
+	4,  90,      // 6, 7
+	92,  158,      // 8, 9
+	156,  105,      //10,11
+	146,  150,      //12,13
+	81,  80,      //14,15
 
-	82, 83,		// 16,17
-	131,  132,	// 18,19
-	134,  135,	// 20,21
-	89,  88,	// 22,23
-	84,  85,	// 24,25
-	86, 87,		// 26,27
-	112,  113,	// 28,29
-	109,   157,	// 30,31
+	82, 83,      //16,17
+	131,  132,      //18,19
+	134,  135,      //20,21
+	89,  88,      //22,23
+	84,  85,      //24,25
+	86, 87,      //26,27
+	112,  113,    //28,29
+	109,   157,    //30,31
 
-	148,  147,	// 32,33
-	100,  101,	// 34,35
-	102, 103,	// 36,37
-	97,  98,	// 38,39
-	99,  96,	// 40,41
-	110, 111,	// 42,43
-	64,  65,	// 44,45
-	-1, -1,		// 46,47
+	148,  147,      //32,33
+	100,  101,      //34,35
+	102, 103,      //36,37
+	97,  98,      //38,39
+	99,  96,      //40,41
+	110, 111,      //42,43
+	64,  65,      //44,45
+	-1, -1,      //46,47
 
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,// ... 63
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,// ... 63	
 };
 
   int CPI_PIN_MASK[5][32] =  //[BANK]	[INDEX]
@@ -184,7 +184,7 @@ static void writeR(unsigned int val, unsigned int addr)
 	unsigned int mmap_base = (addr & ~MAP_MASK);
 	unsigned int mmap_seek = (addr - mmap_base);
 
-	if(mmap_base == CRU_BASE)
+	if(mmap_base == CRU_BASE) 
 		*((unsigned int *)((unsigned char *)cru_base + mmap_seek)) = val;
 	else if(mmap_base == GRF_BASE)
 		*((unsigned int *)((unsigned char *)grf_base + mmap_seek)) = val;
@@ -226,7 +226,7 @@ int CPi_get_gpio_mode(int pin)
 
 	if (CPI_PIN_MASK[bank][index] < 0)
 		return -1;
-
+	
 #ifdef CONFIG_CLOCKWORKPI_A06
 
 	unsigned int grf_phyaddr = 0, ddr_phyaddr = 0;
@@ -239,7 +239,7 @@ int CPi_get_gpio_mode(int pin)
 	else if(bank == 1){
 		grf_phyaddr = PMUGRF_BASE + ((index >> 3) << 2) + 0x10;
 		ddr_phyaddr = GPIO1_BASE + GPIO_SWPORTA_DDR_OFFSET;
-	}
+	}	
 	else if(bank == 2){
 		grf_phyaddr = GRF_BASE + ((index >> 3) << 2);
 		ddr_phyaddr = GPIO2_BASE + GPIO_SWPORTA_DDR_OFFSET;
@@ -391,7 +391,7 @@ int CPi_set_gpio_mode(int pin, int mode)
 			if (wiringPiDebug)
 				printf("Out mode get value: 0x%x\n",regval);
 #endif
-		} else
+		} else 
 			printf("Unknow mode\n");
 	} else
 		printf("unused pin\n");
@@ -428,7 +428,7 @@ int CPi_set_gpio_alt(int pin, int mode)
 }
 
 /*
- * CPi Digital write
+ * CPi Digital write 
  */
 void CPi_digitalWrite(int pin, int value)
 {
@@ -438,7 +438,7 @@ void CPi_digitalWrite(int pin, int value)
 	unsigned int regval = 0;
 
 #ifdef CONFIG_CLOCKWORKPI_A04
-
+	
 	if (bank >= 6) {
 		phyaddr = GPIOL_BASE + (bank -6) * 0x24 + 0x10;
 	} else {
@@ -460,7 +460,7 @@ void CPi_digitalWrite(int pin, int value)
 		cru_phyaddr = PMUCRU_BASE + PMUCRU_CLKGATE_CON1_OFFSET;
 	}
 	else if(bank == 2){
-		phyaddr = GPIO2_BASE + GPIO_SWPORTA_DR_OFFSET;
+		phyaddr = GPIO2_BASE + GPIO_SWPORTA_DR_OFFSET;			
 		cru_phyaddr = CRU_BASE + CRU_CLKGATE_CON31_OFFSET;
 	}
 	else if(bank == 3){
@@ -468,7 +468,7 @@ void CPi_digitalWrite(int pin, int value)
 		cru_phyaddr = CRU_BASE + CRU_CLKGATE_CON31_OFFSET;
 	}
 	else if(bank == 4){
-		phyaddr = GPIO4_BASE + GPIO_SWPORTA_DR_OFFSET;
+		phyaddr = GPIO4_BASE + GPIO_SWPORTA_DR_OFFSET;			
 		cru_phyaddr = CRU_BASE + CRU_CLKGATE_CON31_OFFSET;
 	}
 
@@ -500,7 +500,7 @@ void CPi_digitalWrite(int pin, int value)
 				printf("HIGH val set over reg val: 0x%x\n", regval);
 		}
 
-	}
+	} 
 }
 
 /*
@@ -675,13 +675,13 @@ void pinModeAltCP(int pin, int mode)
 void CPiBoardId (int *model, int *rev, int *mem, int *maker, int *warranty)
 {
 #ifdef CONFIG_CLOCKWORKPI_A04
-	*model = CPI_MODEL_A04;
-	*rev = PI_VERSION_1;
+	*model = CPI_MODEL_A04; 
+	*rev = PI_VERSION_1; 
 	*mem = 3;
 	*maker = 3;
 #elif defined(CONFIG_CLOCKWORKPI_A06)
-	*model = CPI_MODEL_A06;
-	*rev = PI_VERSION_1;
+	*model = CPI_MODEL_A06; 
+	*rev = PI_VERSION_1; 
 	*mem = 4;
 	*maker = 3;
 #endif
